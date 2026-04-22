@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown to the Draft in Pittsburgh</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: transparent;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+  }
+  * { box-sizing: border-box; }
+
+  .ltb-db {
+    width: 100%;
+    background: linear-gradient(90deg, #0a0a0a 0%, #141414 50%, #0a0a0a 100%);
+    border-top: 1px solid #d4a02a;
+    border-bottom: 3px solid #d4a02a;
+    color: #f5f1e6;
+    padding: 10px 20px;
+  }
+  .ltb-db-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+  }
+
+  /* SPONSOR */
+  .ltb-db-sponsor {
+    flex: 0 0 auto; min-width: 180px;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+  }
+  .ltb-db-sponsor-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: #d4a02a; margin-bottom: 4px; font-weight: 600;
+  }
+  .ltb-db-sponsor a {
+    color: #f5f1e6; text-decoration: none;
+    font-weight: 700; font-size: 15px; line-height: 1.2;
+  }
+  .ltb-db-sponsor a:hover { color: #d4a02a; }
+  .ltb-db-sponsor img { max-height: 48px; width: auto; display: block; }
+  .ltb-db-sponsor-placeholder {
+    border: 1px dashed #6b5420; padding: 8px 14px;
+    border-radius: 2px; font-size: 13px;
+    color: #bfa968; font-style: italic;
+  }
+
+  /* CENTER */
+  .ltb-db-center { flex: 1 1 auto; text-align: center; min-width: 300px; }
+  .ltb-db-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    color: #d4a02a; margin: 0 0 6px 0; font-weight: 400;
+  }
+  .ltb-db-title strong {
+    color: #f5f1e6; font-weight: 700; letter-spacing: 3px;
+  }
+  .ltb-db-clock {
+    display: inline-flex; gap: 14px; align-items: flex-start;
+  }
+  .ltb-db-unit {
+    display: flex; flex-direction: column;
+    align-items: center; min-width: 54px;
+  }
+  .ltb-db-num {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px; line-height: 1; font-weight: 700;
+    color: #f5f1e6; font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px rgba(212, 160, 42, 0.25);
+  }
+  .ltb-db-lbl {
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #8a7a4d; margin-top: 4px; font-weight: 600;
+  }
+  .ltb-db-sep {
+    font-family: Georgia, serif; font-size: 34px; line-height: 1;
+    color: #6b5420; padding: 0 2px;
+  }
+
+  /* MOCK LINKS */
+  .ltb-db-mocks {
+    flex: 0 0 auto; min-width: 200px;
+    display: flex; flex-direction: column; gap: 3px;
+    align-items: flex-end;
+  }
+  .ltb-db-mocks-header {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: #d4a02a; margin-bottom: 2px; font-weight: 600;
+  }
+  .ltb-db-mocks a {
+    color: #f5f1e6; text-decoration: none;
+    font-size: 13px; line-height: 1.4; font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color .15s, color .15s;
+  }
+  .ltb-db-mocks a:hover { color: #d4a02a; border-bottom-color: #d4a02a; }
+  .ltb-db-mocks a:before { content: "\203A  "; color: #d4a02a; }
+
+  /* POST-LAUNCH */
+  .ltb-db-post {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .ltb-db-post-sponsor {
+    flex: 1 1 auto; display: flex;
+    justify-content: center; align-items: center;
+  }
+  .ltb-db-post-sponsor img {
+    max-width: 100%; max-height: 90px; height: auto; display: block;
+  }
+  .ltb-db-post-sponsor-ph {
+    border: 1px dashed #6b5420; padding: 14px 28px;
+    color: #bfa968; font-style: italic; font-size: 13px;
+  }
+  .ltb-db-live { flex: 0 0 auto; }
+  .ltb-db-live a {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #d4a02a; color: #0a0a0a;
+    text-decoration: none; padding: 12px 22px;
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border-radius: 2px; transition: background .15s;
+  }
+  .ltb-db-live a:hover { background: #f5c04a; }
+  .ltb-db-live-dot {
+    width: 10px; height: 10px;
+    background: #c8102e; border-radius: 50%;
+    animation: ltb-db-pulse 1.4s infinite;
+  }
+  @keyframes ltb-db-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .ltb-db-inner { gap: 14px; }
+    .ltb-db-sponsor, .ltb-db-mocks { flex: 1 1 100%; align-items: center; }
+    .ltb-db-mocks {
+      flex-direction: row; flex-wrap: wrap;
+      justify-content: center; gap: 10px 18px;
+    }
+    .ltb-db-mocks-header { flex: 1 1 100%; text-align: center; }
+    .ltb-db-center { flex: 1 1 100%; order: -1; }
+    .ltb-db-num { font-size: 28px; }
+    .ltb-db-sep { font-size: 28px; }
+    .ltb-db-unit { min-width: 44px; }
+  }
+  @media (max-width: 480px) {
+    .ltb-db-title { font-size: 11px; letter-spacing: 2px; }
+    .ltb-db-num { font-size: 24px; }
+    .ltb-db-sep { font-size: 24px; }
+    .ltb-db-clock { gap: 8px; }
+    .ltb-db-unit { min-width: 38px; }
+    .ltb-db-lbl { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================== -->
+<!-- EDITOR CONFIG - Edit values between the dashes only -->
+<!-- ================================================== -->
+
+<!-- COUNTDOWN PHASE -->
+<div class="ltb-db" id="ltb-db-countdown">
+  <div class="ltb-db-inner">
+
+    <!-- SPONSOR: replace placeholder with <img src="..."> or keep text -->
+    <div class="ltb-db-sponsor">
+      <span class="ltb-db-sponsor-label">Presented by</span>
+      <a href="#" target="_top" rel="noopener">
+        <span class="ltb-db-sponsor-placeholder">Your Sponsor Here</span>
+      </a>
+    </div>
+
+    <div class="ltb-db-center">
+      <h2 class="ltb-db-title">Countdown to the <strong>Draft in Pittsburgh</strong></h2>
+      <div class="ltb-db-clock">
+        <div class="ltb-db-unit"><span class="ltb-db-num" id="d">--</span><span class="ltb-db-lbl">Days</span></div>
+        <span class="ltb-db-sep">:</span>
+        <div class="ltb-db-unit"><span class="ltb-db-num" id="h">--</span><span class="ltb-db-lbl">Hours</span></div>
+        <span class="ltb-db-sep">:</span>
+        <div class="ltb-db-unit"><span class="ltb-db-num" id="m">--</span><span class="ltb-db-lbl">Minutes</span></div>
+        <span class="ltb-db-sep">:</span>
+        <div class="ltb-db-unit"><span class="ltb-db-num" id="s">--</span><span class="ltb-db-lbl">Seconds</span></div>
+      </div>
+    </div>
+
+    <!-- MOCK DRAFT LINKS: update the three href + text below -->
+    <div class="ltb-db-mocks">
+      <span class="ltb-db-mocks-header">Mock Draft Coverage</span>
+      <a href="#" target="_top">Mock Draft 4.0</a>
+      <a href="#" target="_top">Prospects to Watch</a>
+      <a href="#" target="_top">Steelers at No. 21</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- POST-LAUNCH PHASE (auto-swaps in at 8 PM ET on April 23) -->
+<div class="ltb-db" id="ltb-db-post" style="display:none;">
+  <div class="ltb-db-post">
+    <div class="ltb-db-post-sponsor">
+      <span class="ltb-db-post-sponsor-ph">Sponsor banner &mdash; replace this span with an &lt;img&gt; tag</span>
+    </div>
+    <div class="ltb-db-live">
+      <a href="/sports/nfl-draft-live/" target="_top">
+        <span class="ltb-db-live-dot"></span>LIVE: Draft Coverage &amp; Updates
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // TARGET: 2026 NFL Draft Round 1 kickoff, 8 PM ET Thursday April 23
+  var target = new Date("2026-04-23T20:00:00-04:00").getTime();
+
+  var countdownEl = document.getElementById('ltb-db-countdown');
+  var postEl      = document.getElementById('ltb-db-post');
+  var dEl = document.getElementById('d');
+  var hEl = document.getElementById('h');
+  var mEl = document.getElementById('m');
+  var sEl = document.getElementById('s');
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      countdownEl.style.display = 'none';
+      postEl.style.display = 'block';
+      // notify parent so it can resize iframe if needed
+      try {
+        window.parent.postMessage({ type: 'ltb-db-phase', phase: 'live' }, '*');
+      } catch(e) {}
+      clearInterval(timer);
+      return;
+    }
+    var sec = Math.floor(diff / 1000);
+    dEl.textContent = pad(Math.floor(sec / 86400));
+    hEl.textContent = pad(Math.floor((sec % 86400) / 3600));
+    mEl.textContent = pad(Math.floor((sec % 3600) / 60));
+    sEl.textContent = pad(sec % 60);
+  }
+
+  tick();
+  var timer = setInterval(tick, 1000);
+
+  // tell parent the rendered height so iframe can be sized
+  function reportHeight() {
+    try {
+      var h = document.body.scrollHeight;
+      window.parent.postMessage({ type: 'ltb-db-height', height: h }, '*');
+    } catch(e) {}
+  }
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+})();
+</script>
+
+</body>
+</html>
